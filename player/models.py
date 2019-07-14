@@ -50,12 +50,14 @@ class Team(models.Model):
     player_13 = models.CharField(max_length=100, blank = True, null=True)
     player_14 = models.CharField(max_length=100, blank = True, null=True)
     player_15 = models.CharField(max_length=100, blank = True, null=True)
+    is_verified = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.name}'
 
 
 class Match(models.Model):
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField(max_length=100, blank = True, null=True)
     team_1 = models.ForeignKey(Team, on_delete=models.CASCADE, blank=True, null=True, related_name= 'first_team')
     team_2 = models.ForeignKey(Team, on_delete=models.CASCADE, blank=True, null=True, related_name= 'second_team')

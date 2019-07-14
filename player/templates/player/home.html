@@ -15,4 +15,26 @@
     {{tournament.tournament_type}}
     </br>
 
+
+{% endfor %}
+
+</br>
+</br>
+</br>
+
+
+{% for winner in winners%}
+
+    {{ winner.tournament }}
+    </br>
+
+    {{ winner.gold_medalist }}
+    </br>
+
+    {{ winner.silver_medalist }}
+    </br>
+
+    {{ winner.bronze_medalist }}
+    </br>
+
 {% endfor %}
