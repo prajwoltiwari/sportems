@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
+from .views import TournamentListView
 
 urlpatterns = [
-    path('test/', views.test, name='test')
+    path('', TournamentListView.as_view(), name='home')
 ]

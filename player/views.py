@@ -1,7 +1,19 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.views.generic import (
+    ListView,
+)
+from .models import Tournament, Winner
 
 # Create your views here.
 
-def test(request):
-    return HttpResponse('<h3>This is a test if our program works. Wow!! it works</h3>')
+class TournamentListView(ListView):
+    model = Tournament
+    template_name = 'player/home.html'
+    # context_object_name = 'tournaments'
+    # ordering = ['-start_time']
+    # paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        ctx = super(TournamentListView, self).get_context_data(**kwargs)
+        ctx['winners'] = Winner.objects.all()
+        return ctx

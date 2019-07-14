@@ -12,5 +12,16 @@ class UserRegistrationForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
-class TeamRegistrationForm(forms.ModelForm):
-    
+# class TeamRegistrationForm(forms.ModelForm):
+#     tournament_ = forms.CharField()
+
+#     class Meta:
+#         model = Team
+
+#     def save(self, commit=True):
+#         tournament, created = Team.objects.get_or_create(
+#             tournament=self.cleaned_data['tournament_'],
+#         )
+#         self.cleaned_data['tournament_'] = tournament.id
+#         return super(TeamRegistrationForm, self).save(commit)
+
