@@ -1,16 +1,33 @@
 from django.shortcuts import render, render_to_response, redirect
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.views.generic import (
     ListView,
+    FormView,
 )
-from .models import Tournament, Winner
+from .models import Tournament, Winner, Team
 from .forms import TeamTournamentAdditionForm, TeamRegistrationForm
 
 # Create your views here.
 
+class TeamRegistrationView(FormView):
+    form_class = TeamRegistrationForm
+    template_name = 'player/team-register.html'
+
+    def form_valid(self, form):
+        form.save()
+        teamname = form.cleaned_data.get('username')
+        raw_password = form.cleaned_data.get('password1')
+        user = authenticate(username=teamname, password=raw_password)
+        login(self.request, user)
+        return redirect('home')
+
+
+
 class TournamentAndWinnerListView(ListView):
     model = Tournament
     template_name = 'player/home.html'
-    # context_object_name = 'tournaments'
     # ordering = ['-start_time']
     # paginate_by = 5
 
@@ -20,21 +37,14 @@ class TournamentAndWinnerListView(ListView):
         return context
 
 
-def TeamTournamentAdditionView(request):
-    if request.method=='POST':
-        form=TeamTournamentAdditionForm(request.POST)
-        print(form)
-        if form.is_valid():
-            tournament_ = form.cleaned_data.get('tournament')
-            team_tournament = Tournament(tournament=tournament_)
-            team_tournament.save()
-            team = form.save(commit=False)
-            team.tournament = team_tournament
-            team.save()
+
+class TeamTournamentAdditionView(FormView):
+       model = Team
+       form_class = TeamTournamentAdditionForm
+       template_name = 'player/team-tournament.html'
+
+       def form_valid(self, form):
+            success = form.save()
+            success.name = self.request.user
+            success.save()
             return redirect('home')
-    else:
-        form=TeamTournamentAdditionForm()
-
-    context = { 'form' : form }
-
-    return render(request, 'player/team-tournament.html', context)

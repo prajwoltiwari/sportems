@@ -5,6 +5,7 @@ from .models import Team, Tournament
 
 
 class TeamRegistrationForm(UserCreationForm):
+    username = forms.CharField(max_length = 30, required = True, help_text = 'Please enter your Team-Name')
     email = forms.EmailField()
 
     class Meta:
@@ -13,24 +14,9 @@ class TeamRegistrationForm(UserCreationForm):
 
 
 
-# class TeamRegistrationForm(forms.ModelForm):
-#     tournament_ = forms.CharField()
-
-#     class Meta:
-#         model = Team
-
-#     def save(self, commit=True):
-#         tournament, created = Team.objects.get_or_create(
-#             tournament=self.cleaned_data['tournament_'],
-#         )
-#         self.cleaned_data['tournament_'] = tournament.id
-#         return super(TeamRegistrationForm, self).save(commit)
-
-
-
 class TeamTournamentAdditionForm(forms.ModelForm):
+    tournament = forms.ModelChoiceField(queryset=Tournament.objects.all())
     identification = forms.ImageField(required = True)
-    created_date = forms.DateTimeField(required = True)
     player_1 = forms.CharField(max_length = 30, required = False)
     player_2 = forms.CharField(max_length = 30, required = False)
     player_3 = forms.CharField(max_length = 30, required = False)
@@ -41,14 +27,14 @@ class TeamTournamentAdditionForm(forms.ModelForm):
     player_8 = forms.CharField(max_length = 30, required = False)
     player_9 = forms.CharField(max_length = 30, required = False)
     player_10 = forms.CharField(max_length = 30, required = False)
-    player_11= forms.CharField(max_length = 30, required = False)
-    player_12= forms.CharField(max_length = 30, required = False)
-    player_13= forms.CharField(max_length = 30, required = False)
-    player_14= forms.CharField(max_length = 30, required = False)
-    player_15= forms.CharField(max_length = 30, required = False)
+    player_11 = forms.CharField(max_length = 30, required = False)
+    player_12 = forms.CharField(max_length = 30, required = False)
+    player_13 = forms.CharField(max_length = 30, required = False)
+    player_14 = forms.CharField(max_length = 30, required = False)
+    player_15 = forms.CharField(max_length = 30, required = False)
     class Meta:
         model = Team
-        exclude = ['name', 'is_verified']
+        exclude = ['name', 'is_verified', 'created_date']
 
     def __init__(self, *args, **kwargs):
         super(TeamTournamentAdditionForm, self).__init__(*args, **kwargs)
