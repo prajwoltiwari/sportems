@@ -1,15 +1,25 @@
+{% extends 'player/base.html' %}
 {% load crispy_forms_tags%}
 
-
-<div class="content-section">
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Add your team to a tournament</legend>
-            {{ form|crispy }}
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Submit</button>
+{% block content %}
+<div class="" style="background-color: rgb(120, 180, 108); ">
+    <div class="container">
+        <div class="content-section" style="opacity: 0.8; background-color: #b6e1ff">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 text-center">Add your team to a tournament</legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Submit</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </br>
+    </br>
+    </div>
 </div>
+
+{% endblock %}
+ 

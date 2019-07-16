@@ -25,6 +25,8 @@ class Tournament(models.Model):
     start_time = models.DateTimeField(blank=True, null=True)
     end_time = models.DateTimeField(blank=True, null=True)
     is_complete = models.BooleanField(default=False)
+    image = models.ImageField(null=True, upload_to='tournament_images')
+
 
     def __str__(self):
         return f'{self.title}'

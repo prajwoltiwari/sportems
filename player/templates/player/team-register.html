@@ -1,15 +1,27 @@
+{% extends 'player/base.html' %}
 {% load crispy_forms_tags%}
 
 
-<div class="content-section">
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Register Your Team</legend>
-            {{ form|crispy }}
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+{% block content %}
+
+<div class="page-header" style="background-image: url('../../../media/2.jpg'); ">
+    <div class="container">
+        <div class="content-section" style="opacity: 0.9; background-color: #b6e1ff">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 text-center">Register Your Team</legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Sign Up</button>
+                </div>
+            </form>
+            <div class="border-top pt-3">
+                Already have a team account? <a class="ml-2" href="{% url 'login' %}">Login</a>
+            </div>
         </div>
-    </form>
+    </div>
 </div>
+
+{% endblock %}
